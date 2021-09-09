@@ -4,18 +4,56 @@
 #include <ADT.h>
 
 // Node contain coordinate of column
-struct node {
+typedef struct node {
   int coordinateX;
   int coordinateY;
   Node next;
-};
+} node;
 
 // Store List of column nodes
-struct list {
-  int size;
-  Node head;
-  Node tail;
-};
+typedef struct list {
+  int size;    // size of list
+  Node head;   // points to first node
+  Node tail;   // point to last node
+} list;
+
+typedef struct GraphRep {
+  Edge **edges;  // Array of lists
+  int numV;     // Number of Vertices
+  int numE;     // Number of edges
+} GraphRep;
+
+Graph newGraph() {
+  Graph g = malloc(sizeof(GraphRep));
+  if (g == NULL) {
+        fprintf(stderr, "Insufficient memory!\n");
+        exit(EXIT_FAILURE);
+  }
+
+  g->numV = 0;
+  g->numE = 0;
+  g->n = 0;
+
+  g->edges = NULL;
+
+  return g;
+}
+
+bool equalEdge(Edge e1, Edge e2) {
+  return ((e1.v == e2.v && e1.w == e2.w) || (e1.v == e2.w && e1.w == e2.v));
+}
+
+void insertEgde(Graph g, Edge e) {
+  int i = 0;
+  while (i < g->numE && equalEdge(e, g->edges[i])) {
+    i++;
+  }
+  if (i == g->numE) {
+    g->edges[g.]
+  }
+}
+
+
 
 Node newNode(int x, int y) {
   Node n = malloc(sizeof(n));
