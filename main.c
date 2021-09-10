@@ -3,12 +3,21 @@
 #include <ADT.h>
 
 int main() {
-  List columns = newList();
-  append(columns, 50, 80);
-  append(columns, 2, 6);
-  append(columns, 9, 67);
-  append(columns, 0, 0);
-  printList(columns);
-  freeList(columns);
+  Graph graph = newGraph(5);
+
+  Node col1 = insertVertices(graph, 0, 0);
+  Node col2 = insertVertices(graph, 5, 10);
+  Node col3 = insertVertices(graph, 2, 8);
+  Node col4 = insertVertices(graph, 0, 9);
+  Node col5 = insertVertices(graph, 7, 2);
+
+  insertEdge(graph, col1, col2);
+  insertEdge(graph, col1, col3);
+  insertEdge(graph, col1, col4);
+  insertEdge(graph, col2, col4);
+  insertEdge(graph, col2, col5);
+  insertEdge(graph, col3, col5);
+
+  printGraph(graph);
   return 0;
 }

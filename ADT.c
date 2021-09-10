@@ -7,6 +7,7 @@
 typedef struct node {
   int coordinateX;
   int coordinateY;
+  int nodeID;
   Node next;
 } node;
 
@@ -18,44 +19,59 @@ typedef struct list {
 } list;
 
 typedef struct GraphRep {
-  Edge **edges;  // Array of lists
-  int numV;     // Number of Vertices
-  int numE;     // Number of edges
+  List *adjList;  // Array of lists
+  int numV;        // Number of Vertices
+  int numE;        // Number of Edges
+  int currentSize; // Keeps track of many many vertices has been added
 } GraphRep;
 
-Graph newGraph() {
+Graph newGraph(int numVertices) {
   Graph g = malloc(sizeof(GraphRep));
   if (g == NULL) {
         fprintf(stderr, "Insufficient memory!\n");
         exit(EXIT_FAILURE);
   }
 
-  g->numV = 0;
+  //int maxEdges = (numVertices * (numVertices - 1)) / 2;
+  g->numV = numVertices;
   g->numE = 0;
-  g->n = 0;
+  g->currentSize = 0;
+  g->adjList = malloc(numVertices * sizeof(List));
 
-  g->edges = NULL;
+  for (int i = 0; i < numVertices; i++)
+    g->adjList[i] = NULL;
 
   return g;
 }
 
-bool equalEdge(Edge e1, Edge e2) {
-  return ((e1.v == e2.v && e1.w == e2.w) || (e1.v == e2.w && e1.w == e2.v));
+Node insertVertices(Graph g, int x, int y) {
+  int size = g->currentSize;
+  g->adjList[size] = newList();
+  Node n = newNode(g->currentSize, x, y);
+  append(g->adjList[size], n);
+  g->currentSize++;
+  return n;
 }
 
-void insertEgde(Graph g, Edge e) {
-  int i = 0;
-  while (i < g->numE && equalEdge(e, g->edges[i])) {
-    i++;
-  }
-  if (i == g->numE) {
-    g->edges[g.]
+void insertEdge(Graph g, Node point1, Node point2) {
+  Node nodeCopy1 = newNode(point1->nodeID, point1->coordinateX
+    , point1->coordinateY);
+  Node nodeCopy2 = newNode(point2->nodeID, point2->coordinateX
+    , point2->coordinateY);
+  append(g->adjList[point1->nodeID], nodeCopy2);
+  append(g->adjList[point2->nodeID], nodeCopy1);
+  g->numE++;
+}
+
+void printGraph(Graph g) {
+  for (int i = 0; i < g->currentSize; i++) {
+    printList(g->adjList[i]);
+    printf(" END\n");
   }
 }
 
 
-
-Node newNode(int x, int y) {
+Node newNode(int ID, int x, int y) {
   Node n = malloc(sizeof(n));
   if (n == NULL) {
         fprintf(stderr, "Insufficient memory!\n");
@@ -64,6 +80,7 @@ Node newNode(int x, int y) {
 
   n->coordinateX = x;
   n->coordinateY = y;
+  n->nodeID = ID;
   n->next = NULL;
 
   return n;
@@ -96,8 +113,7 @@ void freeList(List l) {
   free(l);
 }
 
-void append(List l, int x, int y) {
-  Node n = newNode(x, y);
+void append(List l, Node n) {
   if (l->head == NULL) {
     l->head = n;
     l->tail = n;
@@ -108,18 +124,21 @@ void append(List l, int x, int y) {
   l->tail->next = n;
   l->tail = n;
   l->size++;
-
   return;
 }
 
 void printList(List l) {
   Node curr = l->head;
 
-  for (int i = 1; curr != NULL; curr = curr->next) {
-    printf("Column No: %d\t x-coordinate: %d\t y-coordinate: %d\n", i, 
+  for (int i = 0; curr != NULL; curr = curr->next) {
+    printf("%d,%d --> ", 
       curr->coordinateX, curr->coordinateY);
     i++;
   }
 
   return;
+}
+
+int getListSize(List l) {
+  return l->size;
 }
