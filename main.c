@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include <ADT.h>
+#include "graph.h"
 
 int main() {
   Graph graph = newGraph(5);

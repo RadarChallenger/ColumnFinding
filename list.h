@@ -1,12 +1,10 @@
-#ifndef ADT_H
-#define ADT_H
+#ifndef LIST_H
+#define LIST_H
 
 #include <stdbool.h>
 
 typedef struct node *Node;
 typedef struct list *List;
-
-typedef struct GraphRep *Graph;
 
 // function takes x, y coordinate
 // return node
@@ -21,14 +19,7 @@ void append(List l, Node n);
 void printList(List l);
 // Return size of given list
 int getListSize(List l);
-
-Graph newGraph(int numVertices);
-
-Node insertVertices(Graph g, int x, int y);
-
-void insertEdge(Graph g, Node point1, Node point2);
-
-void printGraph(Graph g);
-
-
+int getNodeID(Node n);
+int getNodeX(Node n);
+int getNodeY(Node n);
 #endif
