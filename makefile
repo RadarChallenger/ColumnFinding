@@ -1,10 +1,16 @@
-CC=gcc
-CFLAGS=-I.
-DEPS = graph.h list.h 
-OBJ = graph.o list.o main.o 
+# -*- MakeFile -*-
 
-%.o: %.c $(DEPS)
-	$(CC) -c -o $@ $< $(CFLAGS)
+main: main.o graph.o list.o
+	gcc graph.o list.o main.o -o main
 
-main: $(OBJ)
-	$(CC) -o $@ $^ $(CFLAGS)
+main.o: main.c graph.h
+	gcc -c main.c 
+
+graph.o: graph.c list.h
+	gcc -c graph.c 
+
+list.o: list.c
+	gcc -c list.c
+
+clean:
+	rm -f *.o main graph list
