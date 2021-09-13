@@ -3,15 +3,13 @@
 
 #include "list.h"
 
-// Node contain coordinate of column
 typedef struct node {
-  int coordinateX;
-  int coordinateY;
-  int nodeID;
+  int coordinateX;    // Store X coordinate of node
+  int coordinateY;    // Store Y coordinate of node
+  int nodeID;         // Unique Node ID
   Node next;
 } node;
 
-// Store List of column nodes
 typedef struct list {
   int size;    // size of list
   Node head;   // points to first node
@@ -51,6 +49,7 @@ void freeList(List l) {
   Node head = l->head;
   Node temp;
 
+  // Loop though list
   while (head != NULL) {
     temp = head;
     head = head->next;
@@ -61,6 +60,7 @@ void freeList(List l) {
 }
 
 void append(List l, Node n) {
+  // if list is empty
   if (l->head == NULL) {
     l->head = n;
     l->tail = n;
@@ -68,22 +68,21 @@ void append(List l, Node n) {
     return;
   }
 
+  // add node to end, change list tail
   l->tail->next = n;
   l->tail = n;
   l->size++;
-  return;
 }
 
 void printList(List l) {
   Node curr = l->head;
 
-  for (int i = 0; curr != NULL; curr = curr->next) {
+  while (curr != NULL) {
     printf("%d,%d --> ", 
       curr->coordinateX, curr->coordinateY);
-    i++;
+    curr = curr->next;
   }
 
-  return;
 }
 
 int getNodeID(Node n) {

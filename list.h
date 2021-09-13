@@ -6,18 +6,58 @@
 typedef struct node *Node;
 typedef struct list *List;
 
-// function takes x, y coordinate
-// return node
+/*
+* Function: newNode
+* -----------------
+* Stores Node unique ID given to function
+* Store X and y coorinate in Node
+* Set next pointer to NULL
+* 
+* returns: malloc new Node Struct
+*/
 Node newNode(int ID, int x, int y);
-// return empty list
+
+/*
+* Function: newList
+* -----------------
+* set list size to 0
+* head and tail pointer to NULL
+* 
+* returns: malloc new List Struct
+*/
 List newList(void);
-// given list, free all in list
+
+/*
+* Function: freeList
+* ------------------
+* give list, loops though all node and free them
+* free list itself
+* 
+* returns: void
+*/
 void freeList(List l);
-// add node to the tail of given list
+
+/*
+* Function: append
+* ----------------
+* add given node to given List
+* added node is added at the end
+* 
+* returns: void
+*/
 void append(List l, Node n);
-// print list, also give index
+
+/*
+* Function: printList
+* -------------------
+* loop though each node is given list
+* print it's x and y coordinate
+* 
+* returns: void
+*/
 void printList(List l);
-// Return size of given list
+
+/* Utility Functions: Self explanitory*/
 int getListSize(List l);
 int getNodeID(Node n);
 int getNodeX(Node n);

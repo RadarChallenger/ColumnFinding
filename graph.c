@@ -5,7 +5,7 @@
 #include "list.h"
 
 typedef struct GraphRep {
-  List *adjList;  // Array of lists
+  List *adjList;   // Array of lists
   int numV;        // Number of Vertices
   int numE;        // Number of Edges
   int currentSize; // Keeps track of many many vertices has been added
@@ -17,8 +17,7 @@ Graph newGraph(int numVertices) {
         fprintf(stderr, "Insufficient memory!\n");
         exit(EXIT_FAILURE);
   }
-
-  //int maxEdges = (numVertices * (numVertices - 1)) / 2;
+  
   g->numV = numVertices;
   g->numE = 0;
   g->currentSize = 0;
